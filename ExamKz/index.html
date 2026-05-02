@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamKZ — 9 сынып Аттестат дайындық</title>
+    <meta name="description" content="Қазақстан 9 сыныбы аттестат дайындық — тегін видеолар, конспектілер, тесттер">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="bg-image"></div>
+    <div class="bg-overlay"></div>
+    <div class="bg-grid"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- VIDEO MODAL -->
+    <div class="video-modal-overlay" id="videoModal" onclick="if(event.target===this)closeVideoModal()">
+        <div class="video-modal-box">
+            <div class="video-modal-header">
+                <div class="video-modal-title" id="videoModalTitle">Видео</div>
+                <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
+            </div>
+            <iframe class="video-modal-iframe" id="videoModalIframe" allowfullscreen
+                allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Exam<span>KZ</span></div>
+
+        <div class="nav-links">
+            <button class="nav-btn active" data-target="home" id="navHome">Басты бет</button>
+            <button class="nav-btn" data-target="subjects" id="navSubjects">Видеолар</button>
+            <button class="nav-btn" data-target="tests" id="navTests">Тесттер</button>
+            <button class="nav-btn" data-target="materials" id="navMaterials">Конспектілер</button>
+        </div>
+
+        <div class="nav-right">
+            <div class="lang-switch">
+                <button id="langKk" class="active">ҚАЗ</button>
+                <button id="langRu">РУС</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main>
+
+        <!-- HOME -->
+        <section id="home" class="active-section">
+            <div class="hero-badge">🎓 2025 · Аттестат дайындығы · Тегін</div>
+            <h1 id="heroTitle">9 сынып аттестатқа<br><span class="highlight">дайындық</span></h1>
+            <p id="heroDesc">Барлық пәндер бойынша емтиханға 100% дайын бол. Видеолар, конспектілер және тесттер — мүлдем тегін!</p>
+
+            <div class="stats-row">
+                <div class="stat">
+                    <span>10</span>
+                    <p>Пән</p>
+                </div>
+                <div class="stat">
+                    <span>150+</span>
+                    <p>Видео</p>
+                </div>
+                <div class="stat">
+                    <span>140+</span>
+                    <p>Тест</p>
+                </div>
+                <div class="stat">
+                    <span>100%</span>
+                    <p>Тегін</p>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <button class="btn-primary" id="btnStart" onclick="showSection('subjects')">📺 Видеоларды көру</button>
+                <button class="btn-secondary" id="btnTest" onclick="showSection('tests')">✏️ Тест тапсыру</button>
+            </div>
+        </section>
+
+        <!-- SUBJECTS (Video list) -->
+        <section id="subjects" class="hidden">
+            <h2 id="subjectsTitle">Видео сабақтар — Пәнді таңдаңыз</h2>
+            <div class="grid" id="subjectsGrid"></div>
+        </section>
+
+        <!-- VIDEOS PAGE -->
+        <section id="videos" class="hidden">
+            <div style="margin-bottom:20px;">
+                <button class="btn-back" onclick="showSection('subjects')">⬅ Артқа</button>
+            </div>
+            <h2 id="currentSubjectTitle" style="margin-bottom:24px;display:flex;align-items:center;gap:12px;"></h2>
+            <div class="video-grid" id="videosGrid"></div>
+        </section>
+
+        <!-- TESTS -->
+        <section id="tests" class="hidden">
+            <h2 id="testsTitle">Біліміңді тексер — ҰБТ / Аттестат форматы</h2>
+            <div id="testContainer" class="test-container"></div>
+        </section>
+
+        <!-- MATERIALS (Subject list) -->
+        <section id="materials" class="hidden">
+            <h2 id="materialsTitle">Конспектілер мен Шпаргалкалар</h2>
+            <div class="grid" id="materialsSubjectsGrid"></div>
+        </section>
+
+        <!-- MATERIALS LIST -->
+        <section id="materialsList" class="hidden">
+            <div style="margin-bottom:20px;">
+                <button class="btn-back" onclick="showSection('materials')">⬅ Артқа</button>
+            </div>
+            <h2 id="currentMaterialSubjectTitle" style="margin-bottom:24px;display:flex;align-items:center;gap:12px;"></h2>
+            <div class="materials-grid" id="materialsGrid"></div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">Exam<span>KZ</span></div>
+            <p id="footerSupport">Сұрақтарыңыз бар ма? Бізге жазыңыз!</p>
+            <a href="https://t.me/Examkz1" target="_blank" class="btn-telegram" id="btnAdmin">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.287c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.934z"/>
+                </svg>
+                Telegram: @Examkz1
+            </a>
+            <p class="footer-copy">© 2025 ExamKZ · Барлық мазмұн тегін</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
